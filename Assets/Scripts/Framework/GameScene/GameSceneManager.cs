@@ -64,7 +64,11 @@ namespace Framework.GameScene
 
         private void ExitPreviousGame()
         {
-            m_CurrentGame?.Exit();
+            if (m_CurrentGame != null)
+            {
+                m_CurrentGame.Exit();
+                m_CurrentGame = null;
+            }
         }
 
         #endregion
