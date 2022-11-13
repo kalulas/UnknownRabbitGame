@@ -16,8 +16,10 @@ namespace UnityBasedFramework.Camera
     public class CameraManager : Singleton<CameraManager>
     {
         #region Fields
-        
-        private List<UnityEngine.Camera> m_CameraList;
+
+        private const int CAMERA_NUM_LIMIT = 10;
+        private int m_LastAddCameraIdx;
+        private UnityEngine.Camera[] m_CameraArray;
 
         #endregion
 
@@ -30,13 +32,13 @@ namespace UnityBasedFramework.Camera
 
         public override void OnSingletonInit()
         {
-            m_CameraList = new List<UnityEngine.Camera>();
+            m_LastAddCameraIdx = 0;
+            m_CameraArray = new UnityEngine.Camera[CAMERA_NUM_LIMIT];
         }
 
         public override void OnSingletonDisposed()
         {
-            m_CameraList.Clear();
-            m_CameraList = null;
+            m_CameraArray = null;
         }
 
         #endregion
@@ -51,8 +53,8 @@ namespace UnityBasedFramework.Camera
                 return -1;
             }
             
-            var cameraID = m_CameraList.Count;
-            m_CameraList.Add(camera);
+            var cameraID = m_LastAddCameraIdx++;
+            m_CameraArray[cameraID] = camera;
             return cameraID;
         }
 

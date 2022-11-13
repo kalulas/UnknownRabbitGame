@@ -7,6 +7,7 @@
 // GPP ->
 #endregion
 
+using System;
 using Framework.DesignPattern;
 
 namespace Framework.GameScene
@@ -40,27 +41,49 @@ namespace Framework.GameScene
 
         #endregion
 
-        public void StartNewGame(BaseGame game)
-        {
-            // TODO exit previous game
-            m_CurrentGame = game;
-            m_CurrentGame.Init();
-            m_CurrentGame.Start();
-        }
+        #region Event Function
 
-        public void Start()
-        {
-            
-        }
+        // public void OnCallerStart()
+        // {
+        //     
+        // }
 
-        public void Update()
+        public void OnCallerUpdate()
         {
             m_CurrentGame?.Update();
         }
 
-        public void OnDestroy()
+        // public void OnCallerDestroy()
+        // {
+        //     
+        // }
+
+        #endregion
+
+        #region Private Utils
+
+        private void ExitPreviousGame()
         {
-            
+            m_CurrentGame?.Exit();
         }
+
+        #endregion
+
+        #region Public Interface
+
+        public void StartNewGame<TGame>() where TGame : BaseGame
+        {
+            ExitPreviousGame();
+            m_CurrentGame = Activator.CreateInstance<TGame>();
+            m_CurrentGame.Init();
+            m_CurrentGame.Start();
+        }
+
+        public void StartNewGameWithScene<TGame>(string sceneIdentifier) where TGame : BaseGame
+        {
+            // TODO need unity based scene transition, move GameSceneManager to UnityBasedFramework, or abstract?
+        }
+
+        #endregion
     }
 }

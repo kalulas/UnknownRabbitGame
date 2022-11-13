@@ -19,24 +19,24 @@ namespace UnknownRabbitGame.Basic
         public override void OnCallerAwake()
         {
             Debug.Log("[URGEventFunctionCaller.OnCallerAwake]");
-            GameSceneManager.Instance.StartNewGame(new DemoGame());
+            GameSceneManager.Instance.StartNewGame<DemoGame>();
         }
 
         public override void OnCallerStart()
         {
             Debug.Log("[URGEventFunctionCaller.OnCallerStart]");
-            GameSceneManager.Instance.Start();
+            // GameSceneManager.Instance.OnCallerStart();
         }
 
         public override void OnCallerUpdate()
         {
-            GameSceneManager.Instance.Update();
+            GameSceneManager.Instance.OnCallerUpdate();
         }
 
         public override void OnCallerDestroy()
         {
             Debug.Log("[URGEventFunctionCaller.OnCallerDestroy]");
-            GameSceneManager.Instance.OnDestroy();
+            // GameSceneManager.Instance.OnCallerDestroy();
         }
     }
 }

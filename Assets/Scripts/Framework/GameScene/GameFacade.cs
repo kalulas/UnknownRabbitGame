@@ -17,37 +17,37 @@ namespace Framework.GameScene
     [Obsolete]
     public static class GameFacade
     {
-        private static BaseGame m_CurrentGame;
-
-        public static void Init()
-        {
-            
-        }
-
-        public static void StartNewGame(BaseGame game)
-        {
-            m_CurrentGame = game;
-            m_CurrentGame.Init();
-        }
-
-        public static void Start()
-        {
-            m_CurrentGame?.Start();
-        }
-
-        public static BaseGame GetCurrentGame()
-        {
-            return m_CurrentGame;
-        }
-
-        public static void Update()
-        {
-            m_CurrentGame?.Update();
-        }
-
-        public static void OnDestroy()
-        {
-            m_CurrentGame?.OnDestroy();
-        }
+        // private static BaseGame m_CurrentGame;
+        //
+        // public static void Init()
+        // {
+        //     
+        // }
+        //
+        // public static void StartNewGame(BaseGame game)
+        // {
+        //     m_CurrentGame = game;
+        //     m_CurrentGame.Init();
+        // }
+        //
+        // public static void Start()
+        // {
+        //     m_CurrentGame?.Start();
+        // }
+        //
+        // public static BaseGame GetCurrentGame()
+        // {
+        //     return m_CurrentGame;
+        // }
+        //
+        // public static void Update()
+        // {
+        //     m_CurrentGame?.Update();
+        // }
+        //
+        // public static void OnDestroy()
+        // {
+        //     m_CurrentGame?.Exit();
+        // }
     }
 }

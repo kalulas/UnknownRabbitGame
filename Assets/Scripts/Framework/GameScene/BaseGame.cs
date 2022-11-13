@@ -20,21 +20,31 @@ namespace Framework.GameScene
             m_EventDispatcher = new EventDispatcher();
         }
 
-        public abstract void Start();
-
         public EventDispatcher GetEventDispatcher()
         {
             return m_EventDispatcher;
         }
+        
+        protected abstract void OnGameUpdate();
+        protected abstract void OnGameStart();
+        protected abstract void OnGameSceneReady();
+        protected abstract void OnGameExit();
 
-        public abstract void OnGameSceneReady();
-
-        public abstract void Update();
-
-        public virtual void OnDestroy()
+        public void Exit()
         {
             // set null OnGameExit
-            // m_EventDispatcher = null;
+            OnGameExit();
+            m_EventDispatcher = null;
+        }
+
+        public void Start()
+        {
+            OnGameStart();
+        }
+
+        public void Update()
+        {
+            OnGameUpdate();
         }
     }
 }

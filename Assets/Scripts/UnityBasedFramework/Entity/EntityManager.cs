@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using Framework.DesignPattern;
 using UnityBasedFramework.Resources;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace UnityBasedFramework.Entity
 {
@@ -20,7 +19,12 @@ namespace UnityBasedFramework.Entity
     {
         #region Fields
 
+        /// <summary>
+        /// To Class Generator
+        /// </summary>
+        private uint m_EntityIDGenerator;
         private List<Entity> m_EntityList;
+        private Dictionary<uint, Entity> m_EntityDict;
 
         #endregion
         
@@ -33,13 +37,17 @@ namespace UnityBasedFramework.Entity
 
         public override void OnSingletonInit()
         {
+            m_EntityIDGenerator = 0;
             m_EntityList = new List<Entity>();
+            m_EntityDict = new Dictionary<uint, Entity>();
         }
 
         public override void OnSingletonDisposed()
         {
             m_EntityList.Clear();
+            m_EntityDict.Clear();
             m_EntityList = null;
+            m_EntityDict = null;
         }
 
         #endregion
@@ -58,18 +66,18 @@ namespace UnityBasedFramework.Entity
 
         #region Private
 
-        private int AddEntityToContainer(Entity entity)
+        private void AddEntityToContainer(uint entityID, Entity entity)
         {
-            var entityID = m_EntityList.Count;
             m_EntityList.Add(entity);
-            return entityID;
+            m_EntityDict.Add(entityID, entity);
         }
 
-        private int CreateEntityInternal(GameObject gameObject)
+        private uint CreateEntityInternal(GameObject gameObject)
         {
             var entity = new Entity();
             entity.BindGameObject(gameObject);
-            var entityID = AddEntityToContainer(entity);
+            var entityID = m_EntityIDGenerator++;
+            AddEntityToContainer(entityID, entity);
             return entityID;
         }
 
@@ -77,31 +85,23 @@ namespace UnityBasedFramework.Entity
 
         #region Public Interface
 
-        public void CreateEntity(string resourceKey, Transform parent, Action<bool, int, GameObject> afterEntityCreated)
+        public async void CreateEntity(string resourceKey, Transform parent, Action<bool, uint, GameObject> afterEntityCreated)
         {
-            ResourceManager.Instance.LoadResourceAsync<GameObject>(resourceKey, (success, entityRes) =>
-            {
-                if (!success)
-                {
-                    Debug.LogError("[EntityManager.CreateEntity] load entity resource failed, exit!");
-                    return;
-                }
-                
-                var entityInstance = Object.Instantiate(entityRes, parent);
-                var entityID = CreateEntityInternal(entityInstance);
-                afterEntityCreated?.Invoke(true, entityID, entityInstance);
-            });
+            var entityInstance = await ResourceManager.Instance.LoadAndInstantiateAsync<GameObject>(resourceKey);
+            entityInstance.transform.SetParent(parent, false);
+            var entityID = CreateEntityInternal(entityInstance);
+            afterEntityCreated?.Invoke(true, entityID, entityInstance);
         }
 
-        public Entity GetEntity(int entityID)
+        public Entity GetEntity(uint entityID)
         {
-            if (entityID < 0 || entityID >= m_EntityList.Count)
+            if (!m_EntityDict.TryGetValue(entityID, out var entity))
             {
                 Debug.LogError($"[EntityManager.GetEntity] entityID'{entityID}' illegal, exit!");
                 return null;
             }
 
-            return m_EntityList[entityID];
+            return entity;
         }
 
         #endregion

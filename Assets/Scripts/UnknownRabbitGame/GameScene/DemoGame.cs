@@ -53,25 +53,25 @@ namespace UnknownRabbitGame.GameScene
         
         #region BaseGame
 
-        public override void Start()
+        protected override void OnGameStart()
         {
             LoadGameContainer();
         }
 
-        public override void OnGameSceneReady()
+        protected override void OnGameSceneReady()
         {
             // custom logic ...
             LoadRabbitEntity();
         }
-
-        public override void Update()
+        
+        protected override void OnGameUpdate()
         {
             EntityManager.Instance.Update();
         }
-
-        public override void OnDestroy()
+        
+        protected override void OnGameExit()
         {
-            base.OnDestroy();
+            // TODO
         }
 
         #endregion
@@ -83,7 +83,7 @@ namespace UnknownRabbitGame.GameScene
             EntityManager.Instance.CreateEntity("RabbitBrownWhite", m_3DRoot, AfterEntityCreated);
         }
 
-        private void AfterEntityCreated(bool success, int entityID, GameObject entity)
+        private void AfterEntityCreated(bool success, uint entityID, GameObject entity)
         {
             if (!success)
             {
@@ -148,8 +148,7 @@ namespace UnknownRabbitGame.GameScene
 
         private async void LoadGameContainer()
         {
-            var containerRes = await ResourceManager.Instance.LoadResourceAsync<GameObject>("BaseGameContainer");
-            m_GameSceneContainer = Object.Instantiate(containerRes);
+            m_GameSceneContainer = await ResourceManager.Instance.LoadAndInstantiateAsync<GameObject>("BaseGameContainer");
             TryLocateContainerRoot();
             TryFindCameraInContainer();
             OnGameSceneReady();
