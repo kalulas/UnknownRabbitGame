@@ -58,6 +58,16 @@ namespace UnityBasedFramework.Camera
             return cameraID;
         }
 
+        public UnityEngine.Camera GetCamera(int cameraID)
+        {
+            if (cameraID < 0 || cameraID >= m_CameraArray.Length)
+            {
+                return null;
+            }
+
+            return m_CameraArray[cameraID];
+        }
+
         #endregion
 
     }

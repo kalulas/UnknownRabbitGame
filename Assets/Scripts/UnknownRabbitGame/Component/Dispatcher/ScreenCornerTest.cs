@@ -8,9 +8,11 @@
 #endregion
 
 using Framework.GameScene;
+using UnityBasedFramework.Camera;
 using UnityBasedFramework.Utils;
 using UnityEngine;
 using UnknownRabbitGame.EventSystem;
+using UnknownRabbitGame.GameScene;
 
 namespace UnknownRabbitGame.Component.Dispatcher
 {
@@ -20,7 +22,14 @@ namespace UnknownRabbitGame.Component.Dispatcher
 
         private void Start()
         {
-            m_Camera = Camera.main;
+            if (GameSceneManager.Instance.CurrentGame is not DemoGame demoGame)
+            {
+                return;
+            }
+            
+            var mainCameraID = demoGame.MainCameraID;
+            var targetCam = CameraManager.Instance.GetCamera(mainCameraID);
+            m_Camera = targetCam;
         }
 
         private void Update()
