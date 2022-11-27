@@ -10,7 +10,7 @@ A game demo built with Unity 2021.3.0f1 LTS features and my personal Game Framew
 ## Usage
 
 1. Install Unity 2021.3.0f1 
-2. Open scene Assets/Scenes/UnknownRabbitScene.unity and enter play mode
+2. Open scene Assets/Scenes/Launcher.unity and enter play mode
 
 
 
@@ -19,7 +19,8 @@ A game demo built with Unity 2021.3.0f1 LTS features and my personal Game Framew
 项目引入的Package一览：
 
 1. Addressable(1.19.19)：资源管理方案
-2. Compilation Visualizer(1.8.3)：编译过程可视化
+2. Input System(1.3.0)：输入控制
+3. Compilation Visualizer(1.8.3)：编译过程可视化
 
 
 
