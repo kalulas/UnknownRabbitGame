@@ -7,7 +7,6 @@
 // GPP ->
 #endregion
 
-using Framework.GameScene;
 using UnityBasedFramework.GameScene;
 using UnityEngine;
 using UnknownRabbitGame.GameScene;
@@ -19,7 +18,7 @@ namespace UnknownRabbitGame.Basic
         public override void OnCallerAwake()
         {
             Debug.Log("[URGEventFunctionCaller.OnCallerAwake]");
-            GameSceneManager.Instance.StartNewGame<DemoGame>();
+            GameSceneManager.Instance.StartNewGame<LauncherGame>();
         }
 
         public override void OnCallerStart()

@@ -9,9 +9,9 @@
 
 using System;
 using System.Collections;
-using Framework.GameScene;
 using UnknownRabbitGame.EventSystem;
 using TMPro;
+using UnityBasedFramework.GameScene;
 using UnityEngine;
 using UnityEngine.UI;
 

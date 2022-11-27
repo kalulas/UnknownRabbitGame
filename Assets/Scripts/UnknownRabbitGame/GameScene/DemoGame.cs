@@ -71,7 +71,7 @@ namespace UnknownRabbitGame.GameScene
         
         protected override void OnGameExit()
         {
-            // TODO
+            Debug.Log("[DemoGame.OnGameExit]");
         }
 
         #endregion

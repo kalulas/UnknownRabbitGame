@@ -1,18 +1,16 @@
 ﻿#region FILE HEADER
-// Filename: EventFunctionBridge.cs
+// Filename: EventFunctionCaller.cs
 // Author: Kalulas
 // Create: 2022-06-19
 // Description:
-// Design ->
-// GPP ->
 #endregion
 
 using Framework.GameScene;
-using UnityEngine;
+using UnityEngine.ResourceManagement.Util;
 
 namespace UnityBasedFramework.GameScene
 {
-    public abstract class EventFunctionCaller : MonoBehaviour, IEventFunctionCaller
+    public abstract class EventFunctionCaller : ComponentSingleton<EventFunctionCaller>, IEventFunctionCaller
     {
         public abstract void OnCallerAwake();
         public abstract void OnCallerStart();
