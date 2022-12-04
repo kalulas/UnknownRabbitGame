@@ -27,9 +27,14 @@ namespace UnknownRabbitGame.Basic
             // GameSceneManager.Instance.OnCallerStart();
         }
 
-        public override void OnCallerUpdate()
+        public override void OnCallerUpdate(float deltaTime)
         {
-            GameSceneManager.Instance.OnCallerUpdate();
+            GameSceneManager.Instance.OnCallerUpdate(deltaTime);
+        }
+
+        public override void OnCallerFixedUpdate(float fixedDeltaTime)
+        {
+            GameSceneManager.Instance.OnCallerFixedUpdate(fixedDeltaTime);
         }
 
         public override void OnCallerDestroy()

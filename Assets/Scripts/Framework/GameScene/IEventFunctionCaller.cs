@@ -13,7 +13,8 @@ namespace Framework.GameScene
     {
         void OnCallerAwake();
         void OnCallerStart();
-        void OnCallerUpdate();
+        void OnCallerUpdate(float deltaTime);
+        void OnCallerFixedUpdate(float fixedDeltaTime);
         void OnCallerDestroy();
     }
 }

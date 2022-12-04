@@ -13,17 +13,29 @@ namespace UnityBasedFramework.Entity
 {
     public class Entity
     {
+        private uint m_EntityID;
         protected GameObject m_GameObject;
 
         #region Properties
 
+        public uint EntityID => m_EntityID;
         public GameObject GameObject => m_GameObject;
 
         #endregion
 
         #region Event Function
 
-        public virtual void Update()
+        private Entity(uint entityID)
+        {
+            m_EntityID = entityID;
+        }
+
+        public virtual void Update(float deltaTime)
+        {
+            
+        }
+
+        public virtual void FrameUpdate(float frameLength)
         {
             
         }
@@ -31,6 +43,11 @@ namespace UnityBasedFramework.Entity
         #endregion
 
         #region Public Interface
+
+        public static Entity CreateEntity(uint entityID)
+        {
+            return new Entity(entityID);
+        }
 
         public void BindGameObject(GameObject targetGameObject)
         {

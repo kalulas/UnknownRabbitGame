@@ -1,8 +1,8 @@
 ﻿#region FILE HEADER
-// Filename: InputReceiver.cs
+// Filename: InputProvider.cs
 // Author: Kalulas
 // Create: 2022-11-27
-// Description: Receiver of PlayerInput component
+// Description: Receiver of PlayerInput component, Provider of InputManager
 #endregion
 
 using UnityEngine;
@@ -11,7 +11,7 @@ using UnityEngine.InputSystem;
 namespace UnityBasedFramework.InputSystem
 {
     [RequireComponent(typeof(PlayerInput))]
-    public class InputReceiver : MonoBehaviour
+    public class InputProvider : MonoBehaviour
     {
         #region Fields
 
@@ -51,8 +51,12 @@ namespace UnityBasedFramework.InputSystem
         private void PlayerInputCompOnActionTriggered(InputAction.CallbackContext obj)
         {
             // Debug.Log(obj);
-            // TODO starts with Player/Move
-            // cache all Move action in one logic frame time in InputManager(maybe), and update position in GameFrameUpdate(fixed, 100ms?)
+            // cache all Move action in one logic frame time in InputManager(maybe), and update position in GameFrameUpdate(fixed, 50ms? -> 20frames / sec)
+            if (obj.action.name == "Move")
+            {
+                var direction = obj.ReadValue<Vector2>();
+                // TODO register entity, actionType, actionValueType?
+            }
         }
     }
 }

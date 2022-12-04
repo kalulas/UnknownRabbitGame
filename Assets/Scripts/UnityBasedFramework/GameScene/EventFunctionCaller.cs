@@ -6,6 +6,7 @@
 #endregion
 
 using Framework.GameScene;
+using UnityEngine;
 using UnityEngine.ResourceManagement.Util;
 
 namespace UnityBasedFramework.GameScene
@@ -14,7 +15,8 @@ namespace UnityBasedFramework.GameScene
     {
         public abstract void OnCallerAwake();
         public abstract void OnCallerStart();
-        public abstract void OnCallerUpdate();
+        public abstract void OnCallerUpdate(float deltaTime);
+        public abstract void OnCallerFixedUpdate(float fixedDeltaTime);
         public abstract void OnCallerDestroy();
         
         
@@ -30,7 +32,12 @@ namespace UnityBasedFramework.GameScene
 
         private void Update()
         {
-            OnCallerUpdate();
+            OnCallerUpdate(Time.deltaTime);
+        }
+
+        private void FixedUpdate()
+        {
+            OnCallerFixedUpdate(Time.fixedDeltaTime);
         }
 
         private void OnDestroy()

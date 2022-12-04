@@ -16,9 +16,20 @@ namespace UnknownRabbitGame.GameScene
 {
     public class LauncherGame : BaseGame
     {
+        #region Fields
+
+        private const float m_FrameLength = 0.01f;
+
+        #endregion
+        
         #region BaseGame
 
-        protected override void OnGameUpdate()
+        protected override void OnGameUpdate(float deltaTime)
+        {
+            
+        }
+
+        protected override void OnGameFrameUpdate(uint frameCount)
         {
             
         }
@@ -39,13 +50,18 @@ namespace UnknownRabbitGame.GameScene
             Debug.Log("[LauncherGame.OnGameExit]");
         }
 
+        public override float GetFrameLength()
+        {
+            return m_FrameLength;
+        }
+
         #endregion
 
         #region Private Utils
 
         private async void WaitAndLoadNextGame()
         {
-            await Task.Delay(new TimeSpan(0, 0, 5)); // wait for 5 seconds
+            await Task.Delay(new TimeSpan(0, 0, 2)); // wait for 5 seconds
             // await GameSceneManager.Instance.StartNewGameWithScene<DemoGame>("Scenes/UnknownRabbitScene");
             // Debug.Log("[LauncherGame.WaitAndLoadNextGame] Scenes/UnknownRabbitScene loaded!");
             GameSceneManager.Instance.StartNewGameWithSceneCoroutine<DemoGame>("Scenes/UnknownRabbitScene",

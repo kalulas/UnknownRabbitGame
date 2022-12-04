@@ -10,6 +10,7 @@
 using Framework.GameScene;
 using UnityBasedFramework.Camera;
 using UnityBasedFramework.Entity;
+using UnityBasedFramework.InputSystem;
 using UnityBasedFramework.Resources;
 using UnityEngine;
 using UnknownRabbitGame.Component.Dispatcher;
@@ -19,6 +20,8 @@ namespace UnknownRabbitGame.GameScene
     public class DemoGame : BaseGame
     {
         #region Fields
+
+        private const float m_FrameLength = 0.05f;
 
         private const string m_3DRootName = "3DRoot";
         private const string m_UIRootName = "UIRoot";
@@ -64,14 +67,26 @@ namespace UnknownRabbitGame.GameScene
             LoadRabbitEntity();
         }
         
-        protected override void OnGameUpdate()
+        protected override void OnGameUpdate(float deltaTime)
         {
-            EntityManager.Instance.Update();
+            EntityManager.Instance.Update(deltaTime);
+        }
+        
+        protected override void OnGameFrameUpdate(uint frameCount)
+        {
+            // Debug.Log($"[DemoGame.OnGameFrameUpdate] customFrameCount:{frameCount} / engineFrameCount:{Time.frameCount}");
+            InputManager.Instance.FrameUpdate(m_FrameLength);
+            EntityManager.Instance.FrameUpdate(m_FrameLength);
         }
         
         protected override void OnGameExit()
         {
             Debug.Log("[DemoGame.OnGameExit]");
+        }
+
+        public override float GetFrameLength()
+        {
+            return m_FrameLength;
         }
 
         #endregion
@@ -98,7 +113,7 @@ namespace UnknownRabbitGame.GameScene
                 return;
             }
             
-            Debug.Log($"[DemoGame.AfterEntityCreated] entity position: {rabbit.GameObject.transform.localPosition}");
+            Debug.Log($"[DemoGame.AfterEntityCreated] entity({entityID}) position: {rabbit.GameObject.transform.localPosition}");
             rabbit.GameObject.AddComponent<ScreenCornerTest>();
         }
 

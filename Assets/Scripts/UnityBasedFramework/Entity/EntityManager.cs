@@ -54,11 +54,19 @@ namespace UnityBasedFramework.Entity
 
         #region Event Function
 
-        public void Update()
+        public void Update(float deltaTime)
         {
             for (int i = 0; i < m_EntityList.Count; i++)
             {
-                m_EntityList[i].Update();
+                m_EntityList[i].Update(deltaTime);
+            }
+        }
+
+        public void FrameUpdate(float frameLength)
+        {
+            for (int i = 0; i < m_EntityList.Count; i++)
+            {
+                m_EntityList[i].FrameUpdate(frameLength);
             }
         }
 
@@ -74,9 +82,9 @@ namespace UnityBasedFramework.Entity
 
         private uint CreateEntityInternal(GameObject gameObject)
         {
-            var entity = new Entity();
-            entity.BindGameObject(gameObject);
             var entityID = m_EntityIDGenerator++;
+            var entity = Entity.CreateEntity(entityID);
+            entity.BindGameObject(gameObject);
             AddEntityToContainer(entityID, entity);
             return entityID;
         }

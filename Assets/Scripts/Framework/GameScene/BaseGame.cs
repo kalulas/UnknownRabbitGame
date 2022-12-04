@@ -25,10 +25,12 @@ namespace Framework.GameScene
             return m_EventDispatcher;
         }
         
-        protected abstract void OnGameUpdate();
+        protected abstract void OnGameUpdate(float deltaTime);
+        protected abstract void OnGameFrameUpdate(uint frameCount);
         protected abstract void OnGameStart();
         protected abstract void OnGameSceneReady();
         protected abstract void OnGameExit();
+        public abstract float GetFrameLength();
 
         public void Exit()
         {
@@ -42,9 +44,14 @@ namespace Framework.GameScene
             OnGameStart();
         }
 
-        public void Update()
+        public void Update(float deltaTime)
         {
-            OnGameUpdate();
+            OnGameUpdate(deltaTime);
+        }
+
+        public void FrameUpdate(uint frameCount)
+        {
+            OnGameFrameUpdate(frameCount);
         }
     }
 }

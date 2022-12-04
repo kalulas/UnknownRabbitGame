@@ -20,6 +20,8 @@ namespace UnityBasedFramework.GameScene
     public class GameSceneManager : Singleton<GameSceneManager>
     {
         private BaseGame m_CurrentGame;
+        private GameFrameTicker m_GameFrameTicker;
+        private GameFrameUpdate m_GameFrameUpdate;
         private Dictionary<string, CancellationTokenSource> m_LoadSceneAsyncSourceDict;
         private Dictionary<string, Coroutine> m_LoadSceneCoroutineDict;
 
@@ -40,6 +42,7 @@ namespace UnityBasedFramework.GameScene
         {
             m_LoadSceneAsyncSourceDict = new Dictionary<string, CancellationTokenSource>();
             m_LoadSceneCoroutineDict = new Dictionary<string, Coroutine>();
+            m_GameFrameUpdate = OnGameFrameUpdate;
         }
 
         public override void OnSingletonDisposed()
@@ -59,9 +62,19 @@ namespace UnityBasedFramework.GameScene
         //     
         // }
 
-        public void OnCallerUpdate()
+        private void OnGameFrameUpdate(uint frameCount)
         {
-            m_CurrentGame?.Update();
+            m_CurrentGame?.FrameUpdate(frameCount);
+        }
+
+        public void OnCallerUpdate(float deltaTime)
+        {
+            m_CurrentGame?.Update(deltaTime);
+        }
+
+        public void OnCallerFixedUpdate(float fixedDeltaTime)
+        {
+            m_GameFrameTicker?.Tick(fixedDeltaTime);
         }
 
         // public void OnCallerDestroy()
@@ -75,6 +88,7 @@ namespace UnityBasedFramework.GameScene
 
         private void ExitPreviousGame()
         {
+            m_GameFrameTicker = null;
             if (m_CurrentGame != null)
             {
                 m_CurrentGame.Exit();
@@ -134,6 +148,9 @@ namespace UnityBasedFramework.GameScene
             m_CurrentGame = Activator.CreateInstance<TGame>();
             m_CurrentGame.Init();
             m_CurrentGame.Start();
+            
+            var frameLength = m_CurrentGame.GetFrameLength();
+            m_GameFrameTicker = GameFrameTicker.Create(frameLength, m_GameFrameUpdate);
         }
 
         /// <summary>
