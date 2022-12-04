@@ -8,6 +8,7 @@
 #endregion
 
 using Framework.GameScene;
+using Framework.InputSystem;
 using UnityBasedFramework.Camera;
 using UnityBasedFramework.Entity;
 using UnityBasedFramework.InputSystem;
