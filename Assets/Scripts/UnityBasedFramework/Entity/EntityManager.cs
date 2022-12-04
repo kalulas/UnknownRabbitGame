@@ -23,8 +23,8 @@ namespace UnityBasedFramework.Entity
         /// To Class Generator
         /// </summary>
         private uint m_EntityIDGenerator;
-        private List<Entity> m_EntityList;
-        private Dictionary<uint, Entity> m_EntityDict;
+        private List<BaseEntity> m_EntityList;
+        private Dictionary<uint, BaseEntity> m_EntityDict;
 
         #endregion
         
@@ -38,8 +38,8 @@ namespace UnityBasedFramework.Entity
         public override void OnSingletonInit()
         {
             m_EntityIDGenerator = 0;
-            m_EntityList = new List<Entity>();
-            m_EntityDict = new Dictionary<uint, Entity>();
+            m_EntityList = new List<BaseEntity>();
+            m_EntityDict = new Dictionary<uint, BaseEntity>();
         }
 
         public override void OnSingletonDisposed()
@@ -74,17 +74,16 @@ namespace UnityBasedFramework.Entity
 
         #region Private
 
-        private void AddEntityToContainer(uint entityID, Entity entity)
+        private void AddEntityToContainer(uint entityID, BaseEntity baseEntity)
         {
-            m_EntityList.Add(entity);
-            m_EntityDict.Add(entityID, entity);
+            m_EntityList.Add(baseEntity);
+            m_EntityDict.Add(entityID, baseEntity);
         }
 
-        private uint CreateEntityInternal(GameObject gameObject)
+        private uint CreateEntityInternal<TEntity>(GameObject gameObject) where TEntity : BaseEntity, new()
         {
             var entityID = m_EntityIDGenerator++;
-            var entity = Entity.CreateEntity(entityID);
-            entity.BindGameObject(gameObject);
+            var entity = BaseEntity.CreateEntity<TEntity>(entityID).BindGameObject(gameObject).AttachComponents();
             AddEntityToContainer(entityID, entity);
             return entityID;
         }
@@ -93,15 +92,15 @@ namespace UnityBasedFramework.Entity
 
         #region Public Interface
 
-        public async void CreateEntity(string resourceKey, Transform parent, Action<bool, uint, GameObject> afterEntityCreated)
+        public async void CreateEntity<TEntity>(string resourceKey, Transform parent, Action<bool, uint, GameObject> afterEntityCreated) where TEntity : BaseEntity, new()
         {
             var entityInstance = await ResourceManager.Instance.LoadAndInstantiateAsync<GameObject>(resourceKey);
             entityInstance.transform.SetParent(parent, false);
-            var entityID = CreateEntityInternal(entityInstance);
+            var entityID = CreateEntityInternal<TEntity>(entityInstance);
             afterEntityCreated?.Invoke(true, entityID, entityInstance);
         }
 
-        public Entity GetEntity(uint entityID)
+        public BaseEntity GetEntity(uint entityID)
         {
             if (!m_EntityDict.TryGetValue(entityID, out var entity))
             {

@@ -7,15 +7,14 @@
 // GPP ->
 #endregion
 
-using System;
 using System.Collections;
-using UnknownRabbitGame.EventSystem;
 using TMPro;
 using UnityBasedFramework.GameScene;
 using UnityEngine;
 using UnityEngine.UI;
+using UnknownRabbitGame.EventSystem;
 
-namespace UnknownRabbitGame.Component.UI
+namespace UnknownRabbitGame.MonoComponent.UI
 {
     public class BoundsSelectController : MonoBehaviour
     {

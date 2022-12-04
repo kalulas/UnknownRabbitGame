@@ -11,9 +11,9 @@ using UnityEngine;
 
 namespace UnityBasedFramework.Entity
 {
-    public class Entity
+    public class BaseEntity
     {
-        private uint m_EntityID;
+        protected uint m_EntityID;
         protected GameObject m_GameObject;
 
         #region Properties
@@ -25,11 +25,6 @@ namespace UnityBasedFramework.Entity
 
         #region Event Function
 
-        private Entity(uint entityID)
-        {
-            m_EntityID = entityID;
-        }
-
         public virtual void Update(float deltaTime)
         {
             
@@ -40,24 +35,46 @@ namespace UnityBasedFramework.Entity
             
         }
 
-        #endregion
-
-        #region Public Interface
-
-        public static Entity CreateEntity(uint entityID)
+        protected virtual void OnAttachComponents()
         {
-            return new Entity(entityID);
+            
         }
 
-        public void BindGameObject(GameObject targetGameObject)
+        public BaseEntity AttachComponents()
+        {
+            OnAttachComponents();
+            return this;
+        }
+        
+        public BaseEntity BindGameObject(GameObject targetGameObject)
         {
             if (m_GameObject != null)
             {
                 Debug.LogWarning($"[Entity.BindGameObject] original GameObject:{m_GameObject.name}, rebind is illegal");
-                return;
+                return this;
             }
 
             m_GameObject = targetGameObject;
+            return this;
+        }
+
+        #endregion
+
+        #region Private Util
+
+        private BaseEntity LateConstruct(uint entityID)
+        {
+            m_EntityID = entityID;
+            return this;
+        }
+
+        #endregion
+
+        #region Public Interface
+
+        public static BaseEntity CreateEntity<TEntity>(uint entityID) where TEntity : BaseEntity, new()
+        {
+            return new TEntity().LateConstruct(entityID);
         }
 
         #endregion

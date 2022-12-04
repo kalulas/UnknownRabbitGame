@@ -11,10 +11,11 @@ using Framework.GameScene;
 using Framework.InputSystem;
 using UnityBasedFramework.Camera;
 using UnityBasedFramework.Entity;
-using UnityBasedFramework.InputSystem;
 using UnityBasedFramework.Resources;
 using UnityEngine;
-using UnknownRabbitGame.Component.Dispatcher;
+using System.Threading.Tasks;
+using UnknownRabbitGame.Entity;
+using UnknownRabbitGame.InputSystem;
 
 namespace UnknownRabbitGame.GameScene
 {
@@ -96,7 +97,7 @@ namespace UnknownRabbitGame.GameScene
 
         private void LoadRabbitEntity()
         {
-            EntityManager.Instance.CreateEntity("RabbitBrownWhite", m_3DRoot, AfterEntityCreated);
+            EntityManager.Instance.CreateEntity<PlayerEntity>("RabbitBrownWhite", m_3DRoot, AfterEntityCreated);
         }
 
         private void AfterEntityCreated(bool success, uint entityID, GameObject entity)
@@ -115,7 +116,7 @@ namespace UnknownRabbitGame.GameScene
             }
             
             Debug.Log($"[DemoGame.AfterEntityCreated] entity({entityID}) position: {rabbit.GameObject.transform.localPosition}");
-            rabbit.GameObject.AddComponent<ScreenCornerTest>();
+            InputManager.Instance.RegisterReceiver(InputRelationLabelDefine.MAIN_INPUT_LOCAL, rabbit.GameObject.GetComponent<TestInputReceiver>());
         }
 
         private void TryLocateContainerRoot()
@@ -154,6 +155,7 @@ namespace UnknownRabbitGame.GameScene
                 return;
             }
 
+            // TODO changed to InputManager style, remove ID reference from DemoGame
             m_3DCameraID = CameraManager.Instance.RegisterCamera(m_GameSceneContainer.transform.Find(m_3DCameraName)
                 ?.GetComponent<Camera>());
             m_UICameraID = CameraManager.Instance.RegisterCamera(m_GameSceneContainer.transform.Find(m_UICameraName)
@@ -162,11 +164,21 @@ namespace UnknownRabbitGame.GameScene
                 .Find(m_PreviewCameraName)?.GetComponent<Camera>());
         }
 
+        private async Task LoadLocalPlayerInputProvider()
+        {
+            var playerInput =
+                await ResourceManager.Instance.LoadAndInstantiateAsync<GameObject>("LocalPlayerInputProvider");
+            playerInput.transform.SetParent(m_GameSceneContainer.transform);
+            var provider = playerInput.AddComponent<LocalPlayerInputProvider>();
+            InputManager.Instance.RegisterProvider(InputRelationLabelDefine.MAIN_INPUT_LOCAL, provider);
+        }
+
         private async void LoadGameContainer()
         {
             m_GameSceneContainer = await ResourceManager.Instance.LoadAndInstantiateAsync<GameObject>("BaseGameContainer");
             TryLocateContainerRoot();
             TryFindCameraInContainer();
+            await LoadLocalPlayerInputProvider();
             OnGameSceneReady();
         }
         

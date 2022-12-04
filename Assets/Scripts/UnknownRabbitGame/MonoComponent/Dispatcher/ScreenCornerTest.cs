@@ -14,7 +14,7 @@ using UnityEngine;
 using UnknownRabbitGame.EventSystem;
 using UnknownRabbitGame.GameScene;
 
-namespace UnknownRabbitGame.Component.Dispatcher
+namespace UnknownRabbitGame.MonoComponent.Dispatcher
 {
     public class ScreenCornerTest : MonoBehaviour
     {

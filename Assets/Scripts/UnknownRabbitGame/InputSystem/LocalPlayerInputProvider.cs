@@ -1,19 +1,18 @@
 ﻿#region FILE HEADER
-// Filename: InputProvider.cs
+// Filename: LocalPlayerInputProvider.cs
 // Author: Kalulas
-// Create: 2022-11-27
-// Description: Receiver of PlayerInput component, Provider of InputManager
+// Create: 2022-12-04
+// Description:
 #endregion
 
 using Framework.InputSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace UnityBasedFramework.InputSystem
+namespace UnknownRabbitGame.InputSystem
 {
-    // TODO dynamic loading
     [RequireComponent(typeof(PlayerInput))]
-    public class InputProvider : MonoBehaviour, IInputProvider
+    public class LocalPlayerInputProvider : MonoBehaviour, IInputProvider
     {
         #region Fields
 
@@ -35,10 +34,12 @@ namespace UnityBasedFramework.InputSystem
 
         private void Awake()
         {
-            m_InputMessages = new InputMessage[1];
-            m_InputMessages[0] = new InputMessage
+            m_InputMessages = new[]
             {
-                InputType = 0,
+                new InputMessage
+                {
+                    InputType = InputMessageTypeDefine.MOVE
+                }
             };
         }
 
@@ -54,8 +55,6 @@ namespace UnityBasedFramework.InputSystem
             m_PlayerInputComp.onControlsChanged += PlayerInputCompOnControlsChanged;
             m_PlayerInputComp.onDeviceLost += PlayerInputCompOnDeviceLost;
             m_PlayerInputComp.onDeviceRegained += PlayerInputCompOnDeviceRegained;
-            // TODO dynamic register after load
-            InputManager.Instance.RegisterProvider("MainInput", this);
         }
         
         #endregion
@@ -78,8 +77,7 @@ namespace UnityBasedFramework.InputSystem
         private void PlayerInputCompOnActionTriggered(InputAction.CallbackContext obj)
         {
             // Debug.Log(obj);
-            // cache all Move action in one logic frame time in InputManager(maybe), and update position in GameFrameUpdate(fixed, 50ms? -> 20frames / sec)
-            if (obj.action.name == "Move")
+            if (obj.action.name == InputActionDefine.MOVE)
             {
                 var direction = obj.ReadValue<Vector2>();
                 m_InputMessages[0].InputValue0 = direction.x;

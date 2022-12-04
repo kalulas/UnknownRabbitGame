@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnknownRabbitGame.Manager;
 
-namespace UnknownRabbitGame.Component.UI
+namespace UnknownRabbitGame.MonoComponent.UI
 {
     public class PreviewTextureBinder : MonoBehaviour
     {
