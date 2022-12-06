@@ -64,3 +64,6 @@ crashlytics-build.properties
 # untracked asset
 RiderScriptEditorPersistedState.asset
 EditorUserSettings.asset
+
+# personal
+reminder.txt
