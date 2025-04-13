@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.needle.compilation-visualizer": "1.8.3",
     "com.unity.addressables": "1.19.19",
     "com.unity.collab-proxy": "1.15.15",
     "com.unity.ide.rider": "3.0.13",
