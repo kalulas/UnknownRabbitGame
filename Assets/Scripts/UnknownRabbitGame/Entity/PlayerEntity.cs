@@ -8,7 +8,7 @@
 using Framework.InputSystem;
 using UnityBasedFramework.Entity;
 using UnknownRabbitGame.InputSystem;
-using UnknownRabbitGame.MonoComponent.Dispatcher;
+using UnknownRabbitGame.MonoComponent;
 
 namespace UnknownRabbitGame.Entity
 {

@@ -9,12 +9,12 @@
 
 using UnityBasedFramework.Camera;
 using UnityBasedFramework.GameScene;
-using UnityBasedFramework.Utils;
 using UnityEngine;
 using UnknownRabbitGame.EventSystem;
 using UnknownRabbitGame.GameScene;
+using UnknownRabbitGame.Helpers;
 
-namespace UnknownRabbitGame.MonoComponent.Dispatcher
+namespace UnknownRabbitGame.MonoComponent
 {
     public class ScreenCornerTest : MonoBehaviour
     {

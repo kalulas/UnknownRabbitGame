@@ -9,7 +9,7 @@
 
 using UnityEngine;
 
-namespace UnityBasedFramework.Utils
+namespace UnknownRabbitGame.Helpers
 {
     public static class VisualAssist
     {
