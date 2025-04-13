@@ -1,7 +1,7 @@
 using Framework.Debug;
 using UnityEngine;
 
-namespace UnityBasedFramework.Utils
+namespace UnityBasedFramework.Debug
 {
     public class EventFunctionLogger : MonoBehaviour
     {
