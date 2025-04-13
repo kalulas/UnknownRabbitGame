@@ -67,3 +67,8 @@ EditorUserSettings.asset
 
 # personal
 reminder.txt
+
+# commitizen is used locally
+node_modules/
+package.json
+package-lock.json
