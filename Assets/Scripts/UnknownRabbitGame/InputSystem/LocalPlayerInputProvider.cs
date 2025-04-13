@@ -76,7 +76,6 @@ namespace UnknownRabbitGame.InputSystem
 
         private void PlayerInputCompOnActionTriggered(InputAction.CallbackContext obj)
         {
-            // Debug.Log(obj);
             if (obj.action.name == InputActionDefine.MOVE)
             {
                 var direction = obj.ReadValue<Vector2>();

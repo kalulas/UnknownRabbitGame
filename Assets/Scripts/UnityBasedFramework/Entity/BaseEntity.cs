@@ -7,6 +7,7 @@
 // GPP ->
 #endregion
 
+using Framework.Debug;
 using UnityEngine;
 
 namespace UnityBasedFramework.Entity
@@ -50,7 +51,7 @@ namespace UnityBasedFramework.Entity
         {
             if (m_GameObject != null)
             {
-                Debug.LogWarning($"[Entity.BindGameObject] original GameObject:{m_GameObject.name}, rebind is illegal");
+                Log.Warning("[BaseEntity.BindGameObject] original GameObject:{0}, rebind is illegal", m_GameObject.name);
                 return this;
             }
 

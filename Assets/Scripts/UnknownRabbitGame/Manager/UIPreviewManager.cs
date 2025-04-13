@@ -7,6 +7,7 @@
 // GPP ->
 #endregion
 
+using Framework.Debug;
 using Framework.DesignPattern;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +23,7 @@ namespace UnknownRabbitGame.Manager
 
         private UIPreviewManager()
         {
-            Debug.Log("[UIPreviewManager.UIPreviewManager] ctor");
+            
         }
         
         public override void OnSingletonInit()
@@ -64,7 +65,7 @@ namespace UnknownRabbitGame.Manager
             if (m_PreviewCam == null)
             {
                 rawImage.enabled = false;
-                Debug.LogWarning("[UIPreviewManager.CreatePreview] previewCam not found, exit");
+                Log.Warning("[UIPreviewManager.CreatePreview] previewCam not found, exit");
                 return;
             }
             

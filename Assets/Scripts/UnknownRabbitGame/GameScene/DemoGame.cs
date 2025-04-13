@@ -14,6 +14,7 @@ using UnityBasedFramework.Entity;
 using UnityBasedFramework.Resources;
 using UnityEngine;
 using System.Threading.Tasks;
+using Framework.Debug;
 using UnknownRabbitGame.Entity;
 using UnknownRabbitGame.InputSystem;
 
@@ -83,7 +84,7 @@ namespace UnknownRabbitGame.GameScene
         
         protected override void OnGameExit()
         {
-            Debug.Log("[DemoGame.OnGameExit]");
+            Log.Debug("[DemoGame] exit!");
         }
 
         public override float GetFrameLength()
@@ -104,18 +105,18 @@ namespace UnknownRabbitGame.GameScene
         {
             if (!success)
             {
-                Debug.LogError("[DemoGame.AfterEntityCreated] created entity failed!");
+                Log.Error("[DemoGame.AfterEntityCreated] created entity failed!");
                 return;
             }
             
-            Debug.Log($"[DemoGame.AfterEntityCreated] {entity.name} created!");
+            Log.Debug($"[DemoGame.AfterEntityCreated] '{entity.name}' created!");
             var rabbit = EntityManager.Instance.GetEntity(entityID);
             if (rabbit == null)
             {
                 return;
             }
             
-            Debug.Log($"[DemoGame.AfterEntityCreated] entity({entityID}) position: {rabbit.GameObject.transform.localPosition}");
+            Log.Debug($"[DemoGame.AfterEntityCreated] entity '{entityID}' position '{rabbit.GameObject.transform.localPosition}'");
             InputManager.Instance.RegisterReceiver(InputRelationLabelDefine.MAIN_INPUT_LOCAL, rabbit.GameObject.GetComponent<TestInputReceiver>());
         }
 
@@ -123,7 +124,7 @@ namespace UnknownRabbitGame.GameScene
         {
             if (m_GameSceneContainer == null)
             {
-                Debug.LogWarning("[DemoGame.TryLocateContainerRoot] container not found, exit!");
+                Log.Warning("[DemoGame.TryLocateContainerRoot] container not found, exit!");
                 return;
             }
 
@@ -133,17 +134,17 @@ namespace UnknownRabbitGame.GameScene
 
             if (m_3DRoot == null)
             {
-                Debug.LogError($"[DemoGame.TryLocateContainerRoot] {m_3DRootName} not found!");
+                Log.Error($"[DemoGame.TryLocateContainerRoot] {m_3DRootName} not found!");
             }
 
             if (m_UIRoot == null)
             {
-                Debug.LogError($"[DemoGame.TryLocateContainerRoot] {m_UIRootName} not found!");
+                Log.Error($"[DemoGame.TryLocateContainerRoot] {m_UIRootName} not found!");
             }
 
             if (m_PreviewRoot == null)
             {
-                Debug.LogError($"[DemoGame.TryLocateContainerRoot] {m_PreviewRootName} not found!");
+                Log.Error($"[DemoGame.TryLocateContainerRoot] {m_PreviewRootName} not found!");
             }
         }
 
@@ -151,7 +152,7 @@ namespace UnknownRabbitGame.GameScene
         {
             if (m_GameSceneContainer == null)
             {
-                Debug.LogWarning("[DemoGame.TryFindCameraInContainer] container not found, exit!");
+                Log.Warning("[DemoGame.TryFindCameraInContainer] container not found, exit!");
                 return;
             }
 

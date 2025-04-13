@@ -22,7 +22,7 @@ namespace Framework.InputSystem
 
         private InputManager()
         {
-            // Debug.Log("[InputManager.InputManager] ctor");
+            
         }
 
         public override void OnSingletonInit()

@@ -15,7 +15,6 @@ namespace UnknownRabbitGame.InputSystem
     {
         public void Receive(InputMessage[] messages)
         {
-            // Debug.Log($"[TestInputReceiver.Receive] {messages[0].InputType} -> {messages[0].InputValue0}:{messages[0].InputValue1}");
             var frameLength = GameSceneManager.Instance.CurrentGame.GetFrameLength();
             var direction = new Vector3(messages[0].InputValue0, 0, messages[0].InputValue1);
             gameObject.transform.Translate(direction * frameLength);

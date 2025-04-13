@@ -17,13 +17,11 @@ namespace UnknownRabbitGame.Basic
     {
         public override void OnCallerAwake()
         {
-            Debug.Log("[URGEventFunctionCaller.OnCallerAwake]");
             GameSceneManager.Instance.StartNewGame<LauncherGame>();
         }
 
         public override void OnCallerStart()
         {
-            Debug.Log("[URGEventFunctionCaller.OnCallerStart]");
             // GameSceneManager.Instance.OnCallerStart();
         }
 
@@ -39,7 +37,6 @@ namespace UnknownRabbitGame.Basic
 
         public override void OnCallerDestroy()
         {
-            Debug.Log("[URGEventFunctionCaller.OnCallerDestroy]");
             // GameSceneManager.Instance.OnCallerDestroy();
         }
     }

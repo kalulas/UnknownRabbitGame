@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Framework.Debug;
 using Framework.DesignPattern;
 using Framework.GameScene;
 using UnityEngine;
@@ -174,7 +175,7 @@ namespace UnityBasedFramework.GameScene
                 {
                     if (ex.CancellationToken == cts.Token)
                     {
-                        Debug.Log($"[GameSceneManager.StartNewGameWithScene] {cts.Token} is cancelled");
+                        Log.Debug("[GameSceneManager.StartNewGameWithScene] token {0} is cancelled", cts.Token);
                         // TODO after cancellation
                     }
                 }
@@ -186,7 +187,7 @@ namespace UnityBasedFramework.GameScene
             }
             else
             {
-                Debug.LogWarning($"[GameSceneManager.StartNewGameWithScene] {sceneIdentifier} is already loading");
+                Log.Warning("[GameSceneManager.StartNewGameWithScene] '{0}' is already loading", sceneIdentifier);
             }
         }
 
@@ -196,7 +197,7 @@ namespace UnityBasedFramework.GameScene
             {
                 source.Cancel();
                 m_LoadSceneAsyncSourceDict.Remove(sceneIdentifier);
-                Debug.Log($"[GameSceneManager.CancelNewGameSceneLoading] scene loading of {sceneIdentifier} cancelled");
+                Log.Debug("[GameSceneManager.CancelNewGameSceneLoading] scene loading of '{0}' cancelled", sceneIdentifier);
             }
         }
 
@@ -215,7 +216,7 @@ namespace UnityBasedFramework.GameScene
             }
             else
             {
-                Debug.LogWarning($"[GameSceneManager.StartNewGameWithSceneCoroutine] {sceneIdentifier} is already loading");
+                Log.Warning("[GameSceneManager.StartNewGameWithSceneCoroutine] '{0}' is already loading", sceneIdentifier);
             }
         }
 

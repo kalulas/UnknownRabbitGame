@@ -41,7 +41,6 @@ namespace UnknownRabbitGame.MonoComponent.UI
 
             var targetName = (string) param[0];
             var vec4 = (Vector4) param[1];
-            // Debug.LogFormat("[ScreenCornerController.OnTargetObjectScreenBoundsUpdate] {0}", vec4);
             var centerX = (vec4[2] + vec4[0]) / 2;
             var centerY = (vec4[3] + vec4[1]) / 2;
             var width = vec4[2] - vec4[0];

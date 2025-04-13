@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using Framework.Debug;
 using Framework.DesignPattern;
 using UnityBasedFramework.Resources;
 using UnityEngine;
@@ -32,7 +33,7 @@ namespace UnityBasedFramework.Entity
 
         private EntityManager()
         {
-            Debug.Log("[EntityManager.EntityManager] ctor");
+            
         }
 
         public override void OnSingletonInit()
@@ -104,7 +105,7 @@ namespace UnityBasedFramework.Entity
         {
             if (!m_EntityDict.TryGetValue(entityID, out var entity))
             {
-                Debug.LogError($"[EntityManager.GetEntity] entityID'{entityID}' illegal, exit!");
+                Log.Error("[EntityManager.GetEntity] entityID '{0}' illegal, exit!", entityID);
                 return null;
             }
 

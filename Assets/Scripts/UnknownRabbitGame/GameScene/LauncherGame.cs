@@ -7,6 +7,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Framework.Debug;
 using Framework.GameScene;
 using UnityBasedFramework.GameScene;
 using UnityEngine;
@@ -36,7 +37,7 @@ namespace UnknownRabbitGame.GameScene
 
         protected override void OnGameStart()
         {
-            Debug.Log("[LauncherGame.OnGameStart]");
+            Log.Debug("[LauncherGame] start!");
             WaitAndLoadNextGame();
         }
 
@@ -47,7 +48,7 @@ namespace UnknownRabbitGame.GameScene
 
         protected override void OnGameExit()
         {
-            Debug.Log("[LauncherGame.OnGameExit]");
+            Log.Debug("[LauncherGame] exit!");
         }
 
         public override float GetFrameLength()
@@ -63,10 +64,8 @@ namespace UnknownRabbitGame.GameScene
         {
             await Task.Delay(new TimeSpan(0, 0, 2)); // wait for 5 seconds
             // await GameSceneManager.Instance.StartNewGameWithScene<DemoGame>("Scenes/UnknownRabbitScene");
-            // Debug.Log("[LauncherGame.WaitAndLoadNextGame] Scenes/UnknownRabbitScene loaded!");
             GameSceneManager.Instance.StartNewGameWithSceneCoroutine<DemoGame>("Scenes/UnknownRabbitScene",
                 URGEventFunctionCaller.Instance);
-            // Debug.Log("[LauncherGame.WaitAndLoadNextGame] Scenes/UnknownRabbitScene loaded!");
         }
 
         #endregion

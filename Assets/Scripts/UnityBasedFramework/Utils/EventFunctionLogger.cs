@@ -1,3 +1,4 @@
+using Framework.Debug;
 using UnityEngine;
 
 namespace UnityBasedFramework.Utils
@@ -6,37 +7,37 @@ namespace UnityBasedFramework.Utils
     {
         private void Awake()
         {
-            Debug.Log($"[EventFunctionLogger.Awake] {name}");
+            Log.Info("[EventFunctionLogger.Awake] {0}", name);
         }
 
         private void OnEnable()
         {
-            Debug.Log($"[EventFunctionLogger.OnEnable] {name}");
+            Log.Info("[EventFunctionLogger.OnEnable] {0}", name);
         }
 
         private void OnDisable()
         {
-            Debug.Log($"[EventFunctionLogger.OnDisable] {name}");
+            Log.Info("[EventFunctionLogger.OnDisable] {0}", name);
         }
     
         private void OnDestroy()
         {
-            Debug.Log($"[EventFunctionLogger.OnDestroy] {name}");
+            Log.Info("[EventFunctionLogger.OnDestroy] {0}", name);
         }
 
         private void Start()
         {
-            Debug.Log($"[EventFunctionLogger.Start] {name}");
+            Log.Info("[EventFunctionLogger.Start] {0}", name);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log($"[EventFunctionLogger.OnTriggerEnter] {name} invoked by {other.name}");
+            Log.Info("[EventFunctionLogger.OnTriggerEnter] '{0}' invoked by '{1}'", name, other.name);
         }
     
         private void OnTriggerExit(Collider other)
         {
-            Debug.Log($"[EventFunctionLogger.OnTriggerExit] {name} invoked by {other.name}");
+            Log.Info("[EventFunctionLogger.OnTriggerExit] '{0}' invoked by '{1}'", name, other.name);
         }
     }
 }

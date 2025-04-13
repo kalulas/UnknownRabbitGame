@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Framework.Debug;
 using Framework.DesignPattern;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -30,7 +31,7 @@ namespace UnityBasedFramework.Resources
 
         private ResourceManager()
         {
-            Debug.Log("[ResourceManager.ResourceManager] ctor");
+            
         }
 
         public override void OnSingletonInit()
@@ -56,11 +57,11 @@ namespace UnityBasedFramework.Resources
         /// <returns></returns>
         public async Task<TObject> LoadAndInstantiateAsync<TObject>(string key) where TObject : Object
         {
-            Debug.Log($"[ResourceManager.LoadAndInstantiateAsync] load asset '{key}'");
+            Log.Info("[ResourceManager.LoadAndInstantiateAsync] load asset '{0}'", key);
             if (m_LoadOperationHandleDict.TryGetValue(key, out var loadHandle) && 
                 loadHandle.Result is TObject targetAsset)
             {
-                Debug.Log($"[ResourceManager.LoadAndInstantiateAsync] asset '{key}' in LoadHandleDict, yield and return");
+                Log.Info("[ResourceManager.LoadAndInstantiateAsync] asset '{0}' in LoadHandleDict, yield and return", key);
                 await Task.Yield();
                 return ObjectProxy.Instantiate(targetAsset);
             }
@@ -72,13 +73,13 @@ namespace UnityBasedFramework.Resources
                 if (!m_LoadOperationHandleDict.ContainsKey(key))
                 {
                     m_LoadOperationHandleDict.Add(key, handle);
-                    Debug.Log($"[ResourceManager.LoadAndInstantiateAsync] asset '{key}' added into LoadHandleDict");
+                    Log.Info("[ResourceManager.LoadAndInstantiateAsync] asset '{0}' added into LoadHandleDict", key);
                 }
 
                 return ObjectProxy.Instantiate(result);
             }
             
-            Debug.LogError($"[ResourceManager.LoadAndInstantiateAsync] fails to load asset '{key}', return null");
+            Log.Error("[ResourceManager.LoadAndInstantiateAsync] fails to load asset '{0}', return null", key);
             return null;
         }
 
@@ -90,11 +91,11 @@ namespace UnityBasedFramework.Resources
         /// <returns></returns>
         public async Task<TObject> LoadResourceAsync<TObject>(string key) where TObject : Object
         {
-            Debug.Log($"[ResourceManager.LoadResourceAsync] load asset '{key}'");
+            Log.Info("[ResourceManager.LoadResourceAsync] load asset '{0}'", key);
             if (m_LoadOperationHandleDict.TryGetValue(key, out var loadHandle) &&
                 loadHandle.Result is TObject targetAsset)
             {
-                Debug.Log($"[ResourceManager.LoadResourceAsync] asset '{key}' in cache, yield and return");
+                Log.Info("[ResourceManager.LoadResourceAsync] asset '{0}' in cache, yield and return", key);
                 await Task.Yield();
                 return targetAsset;
             }
@@ -104,7 +105,7 @@ namespace UnityBasedFramework.Resources
             if (handle.Status == AsyncOperationStatus.Succeeded && !m_LoadOperationHandleDict.ContainsKey(key))
             {
                 m_LoadOperationHandleDict.Add(key, handle);
-                Debug.Log($"[ResourceManager.LoadResourceAsync] asset '{key}' added into cache");
+                Log.Info("[ResourceManager.LoadResourceAsync] asset '{0}' added into cache", key);
             }
 
             if (handle.Status == AsyncOperationStatus.Succeeded && handle.Result != null)
@@ -112,19 +113,19 @@ namespace UnityBasedFramework.Resources
                 if (!m_LoadOperationHandleDict.ContainsKey(key))
                 {
                     m_LoadOperationHandleDict.Add(key, handle);
-                    Debug.Log($"[ResourceManager.LoadResourceAsync] asset '{key}' added into cache");
+                    Log.Info("[ResourceManager.LoadResourceAsync] asset '{0}' added into cache", key);
                 }
 
                 return result;
             }
 
-            Debug.LogError($"[ResourceManager.LoadResourceAsync] fails to load asset '{key}', return null");
+            Log.Error("[ResourceManager.LoadResourceAsync] fails to load asset '{0}', return null", key);
             return null;
         }
 
         public bool UnloadResource(string key)
         {
-            Debug.Log($"[ResourceManager.UnloadResource] release asset '{key}'");
+            Log.Info("[ResourceManager.UnloadResource] release asset '{0}'", key);
             if (m_LoadOperationHandleDict.TryGetValue(key, out var loadHandle))
             {
                 Addressables.Release(loadHandle);
@@ -132,7 +133,7 @@ namespace UnityBasedFramework.Resources
                 return true;
             }
 
-            Debug.LogError($"[ResourceManager.UnloadResource] asset '{key}' not found in LoadHandleDict");
+            Log.Error("[ResourceManager.UnloadResource] asset '{0}' not found in LoadHandleDict", key);
             return false;
         }
 

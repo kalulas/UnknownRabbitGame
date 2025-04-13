@@ -8,6 +8,7 @@
 #endregion
 
 using System.Collections.Generic;
+using Framework.Debug;
 using Framework.DesignPattern;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ namespace UnityBasedFramework.Camera
 
         private CameraManager()
         {
-            Debug.Log("[CameraManager.CameraManager] ctor");
+            
         }
 
         public override void OnSingletonInit()
@@ -49,7 +50,7 @@ namespace UnityBasedFramework.Camera
         {
             if (camera == null)
             {
-                Debug.LogError("[CameraManager.RegisterCamera] null camera received, exit!");
+                Log.Error("[CameraManager.RegisterCamera] null camera received, exit!");
                 return -1;
             }
             
