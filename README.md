@@ -49,3 +49,9 @@ A game demo built with Unity 2021.3.0f1 LTS features and my personal Game Framew
   * Basic：GameScene拓展
   * ... 与上述同名目录均为项目客制化拓展
   * MonoComponent：实验阶段残留Monobehaviour脚本，待清除
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+Copyright (c) 2022-Now Boming Chen
