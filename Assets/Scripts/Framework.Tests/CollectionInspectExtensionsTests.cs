@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Framework.Tests
 {
-    public class CollectionInspect
+    public class CollectionInspectExtensionsTests
     {
         [Test]
         public void InspectNullEnumerable()
