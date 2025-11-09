@@ -10,9 +10,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Framework.Debug;
 using Framework.DesignPattern;
 using Framework.GameScene;
+using Framework.Logging;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

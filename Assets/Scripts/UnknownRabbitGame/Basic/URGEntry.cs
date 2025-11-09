@@ -7,9 +7,9 @@
 
 #endregion
 
-using Framework.Debug;
+using Framework.Logging;
 using UnityBasedFramework.GameScene;
-using UnityEngine;
+using UnknownRabbitGame.Logging;
 
 namespace UnknownRabbitGame.Basic
 {
@@ -17,15 +17,7 @@ namespace UnknownRabbitGame.Basic
     {
         private static void RegisterLoggers()
         {
-            Log.RegisterLogger(Log.LogLevel.Debug, Debug.Log);
-            Log.RegisterLogger(Log.LogLevel.Information, Debug.Log);
-            Log.RegisterLogger(Log.LogLevel.Warning, Debug.LogWarning);
-            Log.RegisterLogger(Log.LogLevel.Error, Debug.LogError);
-
-            Log.RegisterFmtLogger(Log.LogLevel.Debug, Debug.LogFormat);
-            Log.RegisterFmtLogger(Log.LogLevel.Information, Debug.LogFormat);
-            Log.RegisterFmtLogger(Log.LogLevel.Warning, Debug.LogWarningFormat);
-            Log.RegisterFmtLogger(Log.LogLevel.Error, Debug.LogErrorFormat);
+            Log.RegisterLogger(new UnknownRabbitGameLogger());
         }
 
         /// <summary>
@@ -34,7 +26,7 @@ namespace UnknownRabbitGame.Basic
         public override void OnEntryAwake()
         {
             RegisterLoggers();
-            Log.Debug("[URGEntry] EntryAwake!");
+            Log.Debug((ulong) Category.Entry, "EntryAwake!");
             gameObject.AddComponent<URGEventFunctionCaller>();
         }
     }

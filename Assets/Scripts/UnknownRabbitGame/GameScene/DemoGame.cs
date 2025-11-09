@@ -14,7 +14,7 @@ using UnityBasedFramework.Entity;
 using UnityBasedFramework.Resources;
 using UnityEngine;
 using System.Threading.Tasks;
-using Framework.Debug;
+using Framework.Logging;
 using UnknownRabbitGame.Entity;
 using UnknownRabbitGame.InputSystem;
 

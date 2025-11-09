@@ -9,8 +9,8 @@
 
 using System;
 using System.Collections.Generic;
-using Framework.Debug;
 using Framework.DesignPattern;
+using Framework.Logging;
 using UnityBasedFramework.Resources;
 using UnityEngine;
 

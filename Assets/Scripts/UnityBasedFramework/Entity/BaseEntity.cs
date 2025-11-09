@@ -7,7 +7,7 @@
 // GPP ->
 #endregion
 
-using Framework.Debug;
+using Framework.Logging;
 using UnityEngine;
 
 namespace UnityBasedFramework.Entity

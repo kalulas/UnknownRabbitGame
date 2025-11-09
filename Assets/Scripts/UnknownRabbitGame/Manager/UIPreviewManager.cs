@@ -7,8 +7,8 @@
 // GPP ->
 #endregion
 
-using Framework.Debug;
 using Framework.DesignPattern;
+using Framework.Logging;
 using UnityEngine;
 using UnityEngine.UI;
 

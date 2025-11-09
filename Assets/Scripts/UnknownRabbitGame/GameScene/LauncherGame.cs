@@ -7,10 +7,9 @@
 
 using System;
 using System.Threading.Tasks;
-using Framework.Debug;
 using Framework.GameScene;
+using Framework.Logging;
 using UnityBasedFramework.GameScene;
-using UnityEngine;
 using UnknownRabbitGame.Basic;
 
 namespace UnknownRabbitGame.GameScene

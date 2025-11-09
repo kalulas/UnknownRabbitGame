@@ -7,10 +7,8 @@
 // GPP ->
 #endregion
 
-using System.Collections.Generic;
-using Framework.Debug;
 using Framework.DesignPattern;
-using UnityEngine;
+using Framework.Logging;
 
 namespace UnityBasedFramework.Camera
 {
