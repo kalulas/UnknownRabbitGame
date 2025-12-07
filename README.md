@@ -1,15 +1,15 @@
 # Unknown Rabbit Game
 ## Introduction
 
-A game demo built with Unity 2021.3.0f1 LTS features and my personal Game Framework.
+A game demo built with Unity 6000.3.0f1 LTS features and my personal Game Framework.
 
-基于 Unity 2021.3.0f1 的游戏demo，旨在体验Unity新版本特性，体验社区中热度较高的package，以及构建个人的，可复用的游戏开发框架。
+基于 Unity 6000.3.0f1 的游戏demo，旨在体验Unity新版本特性，体验社区中热度较高的package，以及构建个人的，可复用的游戏开发框架。
 
 
 
 ## How to Launch
 
-1. Install Unity 2021.3.0f1 
+1. Install Unity 6000.3.0f1
 2. Clone this repository and open project
 3. Open scene `Assets/Scenes/Launcher.unity` and enter play mode
 
@@ -21,12 +21,13 @@ A game demo built with Unity 2021.3.0f1 LTS features and my personal Game Framew
 
 ### Runtime
 
-1. Addressable(1.19.19)：资源管理方案
-2. Input System(1.3.0)：输入控制
+1. Addressable：资源管理方案
+2. Input System：输入控制
+3. Animancer Pro：动画解决方案
 
 ### Editor
 
-1. ...
+1. Hot Reload
 
 
 
